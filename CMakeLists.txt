@@ -1,44 +1,46 @@
-cmake_minimum_required(VERSION 3.0.0)
 project(hri_msgs)
 
-find_package(catkin REQUIRED COMPONENTS
-  message_generation
-  sensor_msgs
+cmake_minimum_required(VERSION 3.5)
+
+find_package(ament_cmake REQUIRED)
+find_package(builtin_interfaces REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+
+
+set(msg_files
+
+    msg/AudioFeatures.msg
+    msg/BodyPosture.msg
+    msg/EngagementLevel.msg
+    msg/Expression.msg
+    msg/FacialActionUnits.msg
+    msg/FacialLandmarks.msg
+    msg/Gaze.msg
+    msg/Gesture.msg
+    msg/Group.msg
+    msg/IdsList.msg
+    msg/IdsMatch.msg
+    msg/LiveSpeech.msg
+    msg/NormalizedPointOfInterest2D.msg
+    msg/NormalizedPointOfInterest2DStamped.msg
+    msg/NormalizedRegionOfInterest2D.msg
+    msg/Skeleton2D.msg
+    msg/SoftBiometrics.msg
+
+
+  )
+
+  rosidl_generate_interfaces(${PROJECT_NAME}
+    ${msg_files}
+    DEPENDENCIES builtin_interfaces std_msgs sensor_msgs
 )
 
-add_message_files(
-    DIRECTORY msg
-    FILES
-    AudioFeatures.msg
-    BodyPosture.msg
-    EngagementLevel.msg
-    Expression.msg
-    FacialActionUnits.msg
-    FacialLandmarks.msg
-    Gaze.msg
-    Gesture.msg
-    Group.msg
-    IdsList.msg
-    IdsMatch.msg
-    LiveSpeech.msg
-    NormalizedPointOfInterest2D.msg
-    NormalizedPointOfInterest2DStamped.msg
-    NormalizedRegionOfInterest2D.msg
-    Skeleton2D.msg
-    SoftBiometrics.msg
-
-    # list here the .msg files
-)
 
 
-generate_messages(
-    DEPENDENCIES
-    sensor_msgs
-)
-
-catkin_package(
-    CATKIN_DEPENDS 
-    sensor_msgs
-)
+ament_export_dependencies(rosidl_default_runtime)
+ament_export_include_directories(include)
+ament_package()
 
 
